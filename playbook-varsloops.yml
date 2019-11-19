@@ -1,0 +1,38 @@
+---
+- name: bootstrapping and new user creation
+  hosts: raiders
+  gather_facts: no
+
+  # vars_files expects a list of 1 or more files
+  vars:
+    newusers:
+            - marian
+            - belloq
+            - willie
+            - elsa 
+
+  tasks:
+          - name: update apt with latest repo info
+            raw: "apt upgrade -y"
+            become: yes
+
+          - name: install py3 and pip3 with ansible raw
+            raw: "apt install -y python3-pip"
+            become: yes
+
+          - name: create the new group
+            group: 
+                    name: indymovies
+                    state: present
+            become: yes
+
+          - name: add new users to target hosts
+            user:
+                    name: "{{ item }}"
+                    state: present
+                    group:  indymovies
+            become: yes
+            loop: "{{ newusers }}"
+
+
+
