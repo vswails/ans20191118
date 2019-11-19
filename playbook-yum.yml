@@ -1,0 +1,12 @@
+---
+- name: install sl with yum
+  hosts: planetexpress
+
+  tasks:
+
+          - name: install steam locomotive with yum
+            yum:
+                    name: sl
+                    state: present
+            become: yes
+

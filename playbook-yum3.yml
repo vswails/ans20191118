@@ -1,0 +1,23 @@
+---
+- name: install EPEL libraries in YUM
+  hosts: planetexpress
+  become: yes
+
+  tasks:
+
+          - name: "install epel-release"
+            yum:
+                    name: epel-release 
+                    state: present
+            when: ansible_distribution == "CentOS"
+
+          - name: "Update yum repos and Install package x" 
+            yum:
+                    update_cache: true
+                    name: 
+                      - ratpoison.x86_64
+                      - moon-buggy
+                    state: latest
+            become: yes
+            when: ansible_distribution == "CentOS"
+

@@ -1,0 +1,20 @@
+---
+- name: install sl with yum
+  hosts: planetexpress
+
+  tasks:
+
+          - name: install steam locomotive on CentOS machines 
+            yum:
+                    name: sl
+                    state: present
+            become: yes
+            when: ansible_distribution == "CentOS"
+
+          - name: install steam locomotive on Ubuntu machines 
+            apt:
+                    name: sl
+                    state: present
+            become: yes
+            when: ansible_distribution == "Ubuntu"
+

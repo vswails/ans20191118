@@ -1,0 +1,11 @@
+---
+- name: our first playbook
+  hosts: planetexpress:!farnsworth
+
+  tasks:
+          - name: Install steam locomotive on ALL machines
+            apt:
+                    name: sl
+                    state:  present
+            become: yes
+
