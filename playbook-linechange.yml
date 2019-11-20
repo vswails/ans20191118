@@ -1,0 +1,16 @@
+---
+- name: replacing lines 
+  hosts: planetexpress
+
+  vars:
+          - fileloc: "/var/log/bootstrap.log"
+
+  tasks:
+          - name: "insert a line into {{ fileloc }}"
+            lineinfile:
+                    path: "{{ fileloc }}"
+                    regexp: "^Setting up lib.*"
+                    line: "REDACTED BY ANSIBLE lineinfile modult"
+                    backup: yes
+
+            become: yes
