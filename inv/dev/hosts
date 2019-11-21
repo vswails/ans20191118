@@ -7,4 +7,13 @@ farnsworth ansible_host=10.10.2.6 ansible_user=farnsworth
 [raiders]
 indy ansible_host=10.10.2.2 ansible_user=indy ansible_ssh_pass=alta3
                 
+[myswitches]
+ansible-846-sw1 ansible_ssh_pass=alta3
+ansible-846-sw2 ansible_ssh_pass=alta3
+
+[myswitches:vars]
+ansible_network_os=eos
+ansible_user=admin
+ansible_ssh_pass=default
+
 

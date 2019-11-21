@@ -1,0 +1,35 @@
+---
+- name: create a playbook that parses logs and sends emails on hit
+  hosts: planetexpress
+  
+  vars:
+          logtosearch: "/var/log/bootstrap.log"
+
+  tasks:
+          ## parse log file on target machines
+          ## log location /var/log/bootstrap.log
+          ## if match on WARNING save that line
+          #
+ 
+          - name: parse log file
+            find: 
+              contains:  "^[wW][aA][rR][nN]"
+              contains: ^WARNING.*
+              paths: "{{ logtosearch }}"
+              # use_regex: yes    # unclear how this parameter works, poorly documented
+            register: results   # results is a go to key
+
+          - name: what the heck is results?
+            debug:
+                    var: results
+
+
+
+
+          ## write out saved lines to a file
+          ## copy module would do this...
+          #
+          ## send email with contents of file we created
+         
+ 
+#

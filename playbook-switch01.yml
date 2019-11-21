@@ -1,0 +1,30 @@
+---
+- name: network playbook
+  hosts: myswitches
+  gather_facts: no
+
+  vars:
+          ansible_connection: network_cli
+          ansible_become: yes
+          ansible_become_method: enable
+  tasks:
+
+  - name: make sure gather_facts runs on the controller
+    setup:
+
+
+  - name:  connect to my switches and grab facts
+    eos_facts:
+            gather_subset:  all
+
+  - name: create backup folder
+    file:
+            state: directory
+            path: ~/ans/eos-backup
+
+  - name: copy content
+    copy:
+            content: "{{ ansible_net_config }}"
+            dest: "~/ans/eos-backup/{{ ansible_date_time.date }}-{{ inventory_hostname }}-config.backup"
+
+
