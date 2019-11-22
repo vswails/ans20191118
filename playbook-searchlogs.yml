@@ -1,0 +1,24 @@
+---
+- name: playbook to find logs altered in last hour
+  hosts: planetexpress
+
+  vars:
+          # storage location for logs harvested in last hour
+          storeloc: ~/Onehourlogs/
+
+  tasks:
+          # find files altered in the last hour on remote machines
+          # save any results
+          - name: find files altered in the last hour
+            find:
+                    age: -1h
+                    paths: 
+                        - ~/log/"
+            register:  results
+
+          - name: show what results looks like
+            debug:
+                    var: results
+                    verbosity: 1
+
+                    # get code off github for full code here.
